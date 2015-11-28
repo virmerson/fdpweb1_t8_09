@@ -11,7 +11,7 @@ public class TestConexao {
 			
 			Usuario usu = new Usuario();
 			usu.setId(1);
-			usu.setNome("Jão ALTERADO!");
+			usu.setNome("Jão REFACTORE!");
 			usu.setLogin("Jaoaoaoa");
 			usu.setSenha("212121");
 			

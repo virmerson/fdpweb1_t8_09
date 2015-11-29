@@ -12,17 +12,15 @@ public class ConnectionFactory {
 		String senha = "postgres";
 
 		try {
+			Class.forName("org.postgresql.Driver");
 			//Singleton
 			if (con==null){
 				//cria um novo
 				con =  DriverManager.getConnection(url, usuario, senha);
 			}
-			return con;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
-			return null;
 		}
-		
+		return con;
 	}
 }

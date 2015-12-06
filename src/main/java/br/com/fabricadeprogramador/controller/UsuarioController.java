@@ -1,6 +1,7 @@
 package br.com.fabricadeprogramador.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,12 +21,17 @@ public class UsuarioController extends HttpServlet{
 			throws ServletException, IOException {
 		
 		//1) Pegando da Tela
+		
+		String id = req.getParameter("id");
 		String nome = req.getParameter("nome");
 		String login = req.getParameter("login");
 		String senha = req.getParameter("senha");
 		
 		//2) Criando Objeto Usuario e populando com os dados da tela
 		Usuario usuario = new Usuario();
+		if(!id.isEmpty()){
+			usuario.setId(Integer.parseInt(id));
+		}
 		usuario.setNome(nome);
 		usuario.setLogin(login);
 		usuario.setSenha(senha);
@@ -33,12 +39,39 @@ public class UsuarioController extends HttpServlet{
 		//3) Criando um UsuarioDAO para salvar o usuario
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		
-		//4) Invocar o Método cadastrar
-		usuarioDAO.cadastrar(usuario);
+		//4) Invocar o Método salvar
+		usuarioDAO.salvar(usuario);
 		
 		//5) Respondendo mensagem na tela
 		resp.getWriter().print("Salvo com Sucesso!");
 		
 		
+	}
+	
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		String acao =  req.getParameter("acao");
+		if (acao!=null && acao.equals("exc")){
+			String id = req.getParameter("id");
+			if (!id.isEmpty()){
+				
+				Usuario usuarioAExcluir = new Usuario();
+				usuarioAExcluir.setId(Integer.parseInt(id));
+				
+				UsuarioDAO usuarioDAO = new UsuarioDAO();
+				usuarioDAO.excluir(usuarioAExcluir);
+				
+				resp.getWriter().print("Excluido com Sucesso!");
+			}
+		}else  {
+			
+			UsuarioDAO usuarioDAO = new UsuarioDAO();
+			List<Usuario > lista = usuarioDAO.buscarTodos();
+			resp.getWriter().print(lista);
+		}
+		
+	
 	}
 }

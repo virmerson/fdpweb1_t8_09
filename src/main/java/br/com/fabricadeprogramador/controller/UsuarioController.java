@@ -69,7 +69,21 @@ public class UsuarioController extends HttpServlet{
 			
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
 			List<Usuario > lista = usuarioDAO.buscarTodos();
-			resp.getWriter().print(lista);
+		
+			String saida = "<html><body>";
+			
+			saida = saida + "<b>nome</b><br>";
+			
+			for(int i=0; i<lista.size();i++){
+				
+				saida = saida + " " + lista.get(i).getNome() + "<br>";
+			}
+			
+			saida = saida +"</body></html>";
+			
+			resp.getWriter().print(saida);
+		
+		
 		}
 		
 	

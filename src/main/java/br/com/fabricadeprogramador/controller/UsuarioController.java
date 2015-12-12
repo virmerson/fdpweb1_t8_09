@@ -3,6 +3,7 @@ package br.com.fabricadeprogramador.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -66,24 +67,21 @@ public class UsuarioController extends HttpServlet{
 				resp.getWriter().print("Excluido com Sucesso!");
 			}
 		}else  {
-			
+			//1) Consulta no banco
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
 			List<Usuario > lista = usuarioDAO.buscarTodos();
 		
-			String saida = "<html><body>";
+			//2) Colocar no Request HTTP a lista
+			req.setAttribute("lista", lista);
 			
-			saida = saida + "<b>nome</b><br>";
+			//3 Encaminhar o Request e Response para o Tela
+			RequestDispatcher dispatcher = req.getRequestDispatcher("lista.jsp");
+			dispatcher.forward(req, resp);
 			
-			for(int i=0; i<lista.size();i++){
-				
-				saida = saida + " " + lista.get(i).getNome() + "<br>";
-			}
 			
-			saida = saida +"</body></html>";
+			//ou
+			//req.getRequestDispatcher("lista.jsp").forward(req, resp);
 			
-			resp.getWriter().print(saida);
-		
-		
 		}
 		
 	

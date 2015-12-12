@@ -8,8 +8,23 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script>
+	function confirma(id){
+		
+		if (window.confirm("Deseja Realmente Excluir?") ){
+			
+			location.href="usucontroller?acao=exc&id="+id;
+			
+		}
+		
+	}
+
+</script>
+
 </head>
 <body>
+
+<a href="usucontroller?acao=novo"> NOVO </a>
 
 <table border="1">
 
@@ -32,7 +47,7 @@
 		<td><%=usu.getLogin() %></td>
 		<td> 
 		
-		<a href="usucontroller?acao=exc&id=<%=usu.getId()%>"> Excluir</a>
+		<a href="javascript:confirma(<%=usu.getId()%>)"> Excluir</a>
 		|
 		<a href="usucontroller?acao=edit&id=<%=usu.getId()%>"> Editar</a>
 		

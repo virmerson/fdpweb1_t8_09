@@ -44,8 +44,16 @@ public class UsuarioController extends HttpServlet{
 		usuarioDAO.salvar(usuario);
 		
 		//5) Respondendo mensagem na tela
-		resp.getWriter().print("Salvo com Sucesso!");
+		//resp.getWriter().print("Salvo com Sucesso!");
 		
+		
+		
+		String sucesso = "<script>"; 
+		sucesso=sucesso+ "	window.alert('Salvo com Sucesso');";
+		sucesso=sucesso+"	location.href='usucontroller' ;";
+		sucesso=sucesso+"</script>";
+		
+		resp.getWriter().print(sucesso);
 		
 	}
 	
@@ -63,8 +71,14 @@ public class UsuarioController extends HttpServlet{
 				
 				UsuarioDAO usuarioDAO = new UsuarioDAO();
 				usuarioDAO.excluir(usuarioAExcluir);
+			
 				
-				resp.getWriter().print("Excluido com Sucesso!");
+				String sucesso = "<script>"; 
+				sucesso=sucesso+ "	window.alert('Excluido com Sucesso');";
+				sucesso=sucesso+"	location.href='usucontroller' ;";
+				sucesso=sucesso+"</script>";
+				
+				resp.getWriter().print(sucesso);
 			}
 			
 		}else if (acao!=null && acao.equals("edit")){	

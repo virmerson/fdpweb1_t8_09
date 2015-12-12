@@ -74,6 +74,7 @@ public class UsuarioController extends HttpServlet{
 			
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
 			Usuario usuario = usuarioDAO.buscarPorId(Integer.parseInt(id));
+			if(usuario!=null){
 			//3) Levar o objeto usuario para o form.jsp
 				//3.1) Armazenar o usuario no request
 					req.setAttribute("usuario",usuario);
@@ -82,6 +83,23 @@ public class UsuarioController extends HttpServlet{
 					
 					RequestDispatcher dispatcher = req.getRequestDispatcher("formusuario.jsp");
 					dispatcher.forward(req, resp);
+			}else{
+				resp.getWriter().print("Usuário não econtrado!");
+			}
+			
+		}else if (acao!=null && acao.equals("novo")){		
+			
+			Usuario usuario = new Usuario();
+			usuario.setId(0);
+			usuario.setNome("");
+			usuario.setLogin("");
+			usuario.setSenha("");
+			
+			req.setAttribute("usuario",usuario);
+	
+			RequestDispatcher dispatcher = req.getRequestDispatcher("formusuario.jsp");
+			dispatcher.forward(req, resp);
+			
 		}else  {
 			//1) Consulta no banco
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -93,8 +111,6 @@ public class UsuarioController extends HttpServlet{
 			//3 Encaminhar o Request e Response para o Tela
 			RequestDispatcher dispatcher = req.getRequestDispatcher("lista.jsp");
 			dispatcher.forward(req, resp);
-			
-			
 			//ou
 			//req.getRequestDispatcher("lista.jsp").forward(req, resp);
 			

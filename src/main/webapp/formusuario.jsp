@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@page import="br.com.fabricadeprogramador.entidades.Usuario"%>
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -7,22 +7,20 @@
 </head>
 <body>
 
-<%
-	//Pegando o usuario vindo do servlet
-	Usuario usuario = (Usuario)request.getAttribute("usuario");
-%>
+Novo Form com JSTL
+
 	<form action="usucontroller" method="post">
 		
-		<input type="hidden" name="id" value="<%=usuario.getId()%>"/>  
+		<input type="hidden" name="id" value="${requestScope.usuario.id}"/>  
 	
 		Nome:
-		<input type="text" name="nome" value="<%=usuario.getNome()%>"/>  
+		<input type="text" name="nome" value="${requestScope.usuario.nome}"/>  
 		
 		Login:
-		<input type="text" name="login" value="<%=usuario.getLogin()%>"/> 
+		<input type="text" name="login" value="${requestScope.usuario.login}"/> 
 		
 		Senha:
-		<input type="password" name="senha" value="<%=usuario.getSenha()%>"/>
+		<input type="password" name="senha" value="${requestScope.usuario.senha}"/>
 		
 		<input type="submit" value="Salvar"/>
 	

@@ -1,8 +1,5 @@
 
-<%@page import="br.com.fabricadeprogramador.entidades.Usuario"%>
-<%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,42 +21,29 @@
 </head>
 <body>
 
+Lista de Usuários JSTL
+<br/>
 <a href="usucontroller?acao=novo"> NOVO </a>
 
 <table border="1">
-
-
 	<tr>
 		<th> Id </th>
 		<th>Nome </th>
 		<th> Login </th>
-		<th> AÃ§Ã£o </th>
+		<th> Ação </th>
 	</tr>
-	<%
-		//Pegando a lista vinda do Servlet Controller
-		List<Usuario> lista = (List<Usuario>) request.getAttribute("lista");
-
-		for (Usuario usu : lista) {
-	%>
+<c:forEach items="${requestScope.lista}" var="usu">
 	<tr>
-		<td><%=usu.getId() %>  </td>
-		<td><%=usu.getNome() %> </td>
-		<td><%=usu.getLogin() %></td>
+		<td>${usu.id}  </td>
+		<td>${usu.nome} </td>
+		<td>${usu.login}</td>
 		<td> 
-		
-		<a href="javascript:confirma(<%=usu.getId()%>)"> Excluir</a>
+		<a href="javascript:confirma(${usu.id})"> Excluir</a>
 		|
-		<a href="usucontroller?acao=edit&id=<%=usu.getId()%>"> Editar</a>
-		
-		
+		<a href="usucontroller?acao=edit&id=${usu.id}"> Editar</a>
 		 </td>
-		
-	
 	</tr>
-	
-	<%
-		}
-	%>
+</c:forEach>
 	
 	
 </table>

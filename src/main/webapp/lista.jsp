@@ -18,6 +18,7 @@
 		<th> Id </th>
 		<th>Nome </th>
 		<th> Login </th>
+		<th> Ação </th>
 	</tr>
 	<%
 		//Pegando a lista vinda do Servlet Controller
@@ -29,6 +30,16 @@
 		<td><%=usu.getId() %>  </td>
 		<td><%=usu.getNome() %> </td>
 		<td><%=usu.getLogin() %></td>
+		<td> 
+		
+		<a href="usucontroller?acao=exc&id=<%=usu.getId()%>"> Excluir</a>
+		|
+		<a href="usucontroller?acao=edit&id=<%=usu.getId()%>"> Editar</a>
+		
+		
+		 </td>
+		
+	
 	</tr>
 	
 	<%

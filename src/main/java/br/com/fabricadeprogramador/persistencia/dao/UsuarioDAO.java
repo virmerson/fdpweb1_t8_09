@@ -120,4 +120,28 @@ public class UsuarioDAO {
 		return null;
 	}
 
+	public Usuario buscarPorId(int id) {
+	//1) SQL
+		String sql =  "select * from usuario where id =?";
+	//2) Armazenar o Resultado - "ResultSet"
+		try (PreparedStatement stm = con.prepareStatement(sql) ){
+			stm.setInt(1, id);
+			ResultSet resultSet = stm.executeQuery();
+			if(resultSet.next()){
+				Usuario usuario =  new Usuario();
+				usuario.setId(resultSet.getInt("id"));
+				usuario.setNome(resultSet.getString("nome"));
+				usuario.setLogin(resultSet.getString("login"));
+				usuario.setSenha(resultSet.getString("senha"));
+				return usuario;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	return null;
+	}
+
 }

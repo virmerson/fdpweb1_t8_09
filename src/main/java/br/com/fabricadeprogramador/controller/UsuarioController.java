@@ -66,6 +66,22 @@ public class UsuarioController extends HttpServlet{
 				
 				resp.getWriter().print("Excluido com Sucesso!");
 			}
+			
+		}else if (acao!=null && acao.equals("edit")){	
+			//1) Pega o id da tela
+			String id =  req.getParameter("id");
+			//2) Passar pro DAO carregar o usuario pelo id
+			
+			UsuarioDAO usuarioDAO = new UsuarioDAO();
+			Usuario usuario = usuarioDAO.buscarPorId(Integer.parseInt(id));
+			//3) Levar o objeto usuario para o form.jsp
+				//3.1) Armazenar o usuario no request
+					req.setAttribute("usuario",usuario);
+			
+				//3.2) Encaminhar para JSP por meio o forward
+					
+					RequestDispatcher dispatcher = req.getRequestDispatcher("formusuario.jsp");
+					dispatcher.forward(req, resp);
 		}else  {
 			//1) Consulta no banco
 			UsuarioDAO usuarioDAO = new UsuarioDAO();

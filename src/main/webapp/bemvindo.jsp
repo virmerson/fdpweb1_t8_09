@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-Bem vindo  ${requestScope.usuEncontrado.nome} !
+Bem vindo  ${sessionScope.usuEncontrado.nome} !
 </body>
 </html>

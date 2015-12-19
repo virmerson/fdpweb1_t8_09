@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.fabricadeprogramador.entidades.Usuario;
 import br.com.fabricadeprogramador.persistencia.dao.UsuarioDAO;
@@ -31,7 +32,10 @@ public class LoginController extends HttpServlet {
 		
 		//4 - Se tiver o usuário compara a senha
 		if (usuarioEncontrado!=null && usuarioEncontrado.getSenha().equals(usuario.getSenha())){
-			req.setAttribute("usuEncontrado", usuarioEncontrado );
+			HttpSession session = req.getSession();
+			session.setMaxInactiveInterval(60*5);
+			
+			session.setAttribute("usuEncontrado", usuarioEncontrado );
 			req.getRequestDispatcher("bemvindo.jsp").forward(req, resp);
 		}else {
 			
@@ -39,5 +43,17 @@ public class LoginController extends HttpServlet {
 		}
 		//5 - Decide o redirecionamento (Login ou Bem vindo)
 		
+	}
+	
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		
+		HttpSession session = req.getSession(false);
+		if (session!=null){
+			session.invalidate();
+		}
+		resp.sendRedirect("login.html");
 	}
 }

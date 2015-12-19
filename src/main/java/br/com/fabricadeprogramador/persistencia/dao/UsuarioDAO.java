@@ -144,4 +144,29 @@ public class UsuarioDAO {
 	return null;
 	}
 
+	public Usuario buscarPorLogin(Usuario usuario) {
+		
+		//1) SQL
+				String sql =  "select * from usuario where login =?";
+			//2) Armazenar o Resultado - "ResultSet"
+				try (PreparedStatement stm = con.prepareStatement(sql) ){
+					stm.setString(1, usuario.getLogin());
+					ResultSet resultSet = stm.executeQuery();
+					if(resultSet.next()){
+						Usuario usu =  new Usuario();
+						usu.setId(resultSet.getInt("id"));
+						usu.setNome(resultSet.getString("nome"));
+						usu.setLogin(resultSet.getString("login"));
+						usu.setSenha(resultSet.getString("senha"));
+						return usu;
+					}
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+			return null;
+	}
+
 }

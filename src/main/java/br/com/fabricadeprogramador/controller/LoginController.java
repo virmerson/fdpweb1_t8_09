@@ -28,9 +28,10 @@ public class LoginController extends HttpServlet {
 		//3 - Busca o usuario no banco de dados
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		Usuario usuarioEncontrado = usuarioDAO.buscarPorLogin(usuario);
+		
 		//4 - Se tiver o usuário compara a senha
-		if (usuarioEncontrado.getSenha().equals(usuario.getSenha())){
-			
+		if (usuarioEncontrado!=null && usuarioEncontrado.getSenha().equals(usuario.getSenha())){
+			req.setAttribute("usuEncontrado", usuarioEncontrado );
 			req.getRequestDispatcher("bemvindo.jsp").forward(req, resp);
 		}else {
 			

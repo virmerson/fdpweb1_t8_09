@@ -8,5 +8,6 @@
 </head>
 <body>
 Bem vindo  ${sessionScope.usuEncontrado.nome} !
+<a href="login" > Sair </a> 
 </body>
 </html>
